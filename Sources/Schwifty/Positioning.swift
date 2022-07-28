@@ -7,12 +7,14 @@ import SwiftUI
 // MARK: - Positions
 
 public enum Positioning {
+    case leading
     case leadingTop
     case leadingMiddle
     case leadingBottom
     case top
     case middle
     case bottom
+    case trailing
     case trailingTop
     case trailingMiddle
     case trailingBottom
@@ -35,19 +37,19 @@ private struct PositioningMod: ViewModifier {
     
     func body(content: Content) -> some View {
         HStack(spacing: 0) {
-            if !alignment.isLeading {
+            if alignment.needsSpacerBefore {
                 Spacer(minLength: 0)
             }
             VStack(spacing: 0) {
-                if !alignment.isTop {
+                if alignment.needsSpacerAbove {
                     Spacer(minLength: 0)
                 }
                 content
-                if !alignment.isBottom {
+                if alignment.needsSpacerBelow {
                     Spacer(minLength: 0)
                 }
             }
-            if !alignment.isTrailing {
+            if alignment.needsSpacerAfter {
                 Spacer(minLength: 0)
             }
         }
@@ -58,30 +60,44 @@ private struct PositioningMod: ViewModifier {
 
 extension Positioning {
     
-    var isLeading: Bool {
+    var needsSpacerBefore: Bool {
         switch self {
-        case .leadingTop, .leadingMiddle, .leadingBottom: return true
+        case .middle: return true
+        case .trailing: return true
+        case .trailingMiddle: return true
+        case .trailingTop: return true
+        case .trailingBottom: return true
         default: return false
         }
     }
     
-    var isTrailing: Bool {
+    var needsSpacerAfter: Bool {
         switch self {
-        case .trailingTop, .trailingMiddle, .trailingBottom: return true
+        case .middle: return true
+        case .leading: return true
+        case .leadingMiddle: return true
+        case .leadingTop: return true
+        case .leadingBottom: return true
         default: return false
         }
     }
     
-    var isTop: Bool {
+    var needsSpacerAbove: Bool {
         switch self {
-        case .top, .leadingTop, .trailingTop: return true
+        case .bottom: return true
+        case .middle: return true
+        case .leadingMiddle: return true
+        case .trailingMiddle: return true
         default: return false
         }
     }
     
-    var isBottom: Bool {
+    var needsSpacerBelow: Bool {
         switch self {
-        case .bottom, .leadingBottom, .trailingBottom: return true
+        case .top: return true
+        case .middle: return true
+        case .leadingMiddle: return true
+        case .trailingMiddle: return true
         default: return false
         }
     }
