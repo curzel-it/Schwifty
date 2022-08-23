@@ -87,7 +87,9 @@ extension Positioning {
         case .bottom: return true
         case .middle: return true
         case .leadingMiddle: return true
+        case .leadingBottom: return true
         case .trailingMiddle: return true
+        case .trailingBottom: return true
         default: return false
         }
     }
@@ -96,7 +98,9 @@ extension Positioning {
         switch self {
         case .top: return true
         case .middle: return true
+        case .leadingTop: return true
         case .leadingMiddle: return true
+        case .trailingTop: return true
         case .trailingMiddle: return true
         default: return false
         }
