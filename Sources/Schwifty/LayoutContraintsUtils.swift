@@ -3,10 +3,14 @@
 //
 
 #if os(macOS)
-
 import AppKit
+public typealias ViewType = NSView
+#else
+import UIKit
+public typealias ViewType = UIView
+#endif
 
-extension NSView {
+extension ViewType {
     
     public func constrainToFillParent() {
         guard let parent = superview else { return }
@@ -41,8 +45,8 @@ extension NSView {
 extension NSLayoutConstraint {
     
     public static func anchor(
-        _ view: NSView,
-        to other: NSView,
+        _ view: ViewType,
+        to other: ViewType,
         on side: NSLayoutConstraint.Attribute
     ) -> NSLayoutConstraint {
         NSLayoutConstraint(
@@ -53,5 +57,3 @@ extension NSLayoutConstraint {
         )
     }
 }
-
-#endif

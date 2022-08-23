@@ -19,9 +19,7 @@ extension View {
     }
 }
 
-#endif
-
-#if os(iOS)
+#else
 
 import UIKit
 
