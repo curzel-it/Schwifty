@@ -1,7 +1,3 @@
-//
-// Schwifty.
-//
-
 import XCTest
 
 @testable import Schwifty
