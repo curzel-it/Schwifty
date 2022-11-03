@@ -1,6 +1,6 @@
 # Schwifty
 
-Collection of utilities and extension for SwiftUI, AppKit and UIKit. 
+Collection of utilities and extension I use in my personal projects. 
 
 ![Time to get Schwifty!](banner.jpg)
 

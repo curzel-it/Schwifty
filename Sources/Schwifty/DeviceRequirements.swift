@@ -52,6 +52,23 @@ extension View {
             return AnyView(self)
         }
     }
+    
+    @inlinable public func frame(
+        minWidth: CGFloat? = nil, maxWidth: CGFloat? = nil,
+        minHeight: CGFloat? = nil, maxHeight: CGFloat? = nil,
+        when condition: DeviceRequirement
+    ) -> some View {
+        if condition.isSatisfied {
+            return AnyView(
+                self.frame(
+                    minWidth: minWidth, maxWidth: maxWidth,
+                    minHeight: minHeight, maxHeight: maxHeight
+                )
+            )
+        } else {
+            return AnyView(self)
+        }
+    }
 }
 
 public enum DeviceRequirement {
