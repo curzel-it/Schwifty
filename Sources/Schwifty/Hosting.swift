@@ -1,14 +1,9 @@
-//
-// Schwifty.
-// 
-
 import SwiftUI
 
 #if os(macOS)
 import AppKit
 
 extension View {
-    
     public func hosted() -> NSHostingView<Self> {
         NSHostingView(rootView: self)
     }
@@ -17,7 +12,6 @@ extension View {
 import UIKit
 
 extension View {
-    
     public func hosted() -> UIHostingController<Self> {
         UIHostingController(rootView: self)
     }

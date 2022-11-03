@@ -1,25 +1,18 @@
-//
-// Schwifty.
-//
-
 import SwiftUI
 
 extension Text {
-    
     public func textAlign(_ align: TextAlignment) -> some View {
         modifier(TextAlignMod(align: align))
     }
 }
 
 extension Button {
-    
     public func textAlign(_ align: TextAlignment) -> some View {
         modifier(TextAlignMod(align: align))
     }
 }
 
-private struct TextAlignMod: ViewModifier {
-    
+private struct TextAlignMod: ViewModifier {    
     let align: TextAlignment
     
     func body(content: Content) -> some View {

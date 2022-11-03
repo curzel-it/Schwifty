@@ -1,7 +1,3 @@
-//
-// Schwifty.
-//
-
 #if os(macOS)
 import AppKit
 public typealias ViewType = NSView
@@ -11,7 +7,6 @@ public typealias ViewType = UIView
 #endif
 
 extension ViewType {
-    
     public func constrainToFillParent() {
         guard let parent = superview else { return }
         frame = parent.bounds
@@ -42,8 +37,7 @@ extension ViewType {
     }
 }
 
-extension NSLayoutConstraint {
-    
+extension NSLayoutConstraint {    
     public static func anchor(
         _ view: ViewType,
         to other: ViewType,

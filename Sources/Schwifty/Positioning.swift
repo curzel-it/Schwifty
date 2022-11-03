@@ -1,7 +1,3 @@
-//
-// Schwifty.
-//
-
 import SwiftUI
 
 // MARK: - Positions
@@ -23,7 +19,6 @@ public enum Positioning {
 // MARK: - View Extension
 
 extension View {
-    
     public func positioned(_ align: Positioning) -> some View {
         modifier(PositioningMod(alignment: align))
     }
@@ -32,7 +27,6 @@ extension View {
 // MARK: - View Modifier
 
 private struct PositioningMod: ViewModifier {
-    
     let alignment: Positioning
     
     func body(content: Content) -> some View {
@@ -59,7 +53,6 @@ private struct PositioningMod: ViewModifier {
 // MARK: - Utils
 
 extension Positioning {
-    
     var needsSpacerBefore: Bool {
         switch self {
         case .middle: return true

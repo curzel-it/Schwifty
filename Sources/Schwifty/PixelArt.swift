@@ -1,11 +1,6 @@
-//
-// Schwifty.
-//
-
 import SwiftUI
 
 extension Image {
-    
     public func pixelArt() -> some View {
         self
             .interpolation(.none)
