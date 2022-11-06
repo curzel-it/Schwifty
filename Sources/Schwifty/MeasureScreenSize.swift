@@ -1,68 +1,44 @@
 import SwiftUI
 
-public struct Screen {
-    public static var main: Screen {
-#if os(macOS)
-        let frame = NSScreen.main?.frame ?? .zero
-        return Screen(bounds: CGRect(origin: .zero, size: frame.size))
-#else
-        return Screen(bounds: UIScreen.main.bounds)
-#endif
-    }
-    
-    public let bounds: CGRect
-}
-
 extension View {
-    public func measureScreenSize(to size: Binding<CGSize>) -> some View {
+#if os(macOS)
+    public func measureAvailableSize(
+        includeLiveResize: Bool = false,
+        _ onSizeChanged: @escaping (CGSize) -> Void
+    ) -> some View {
+        self.onWindow { window in
+            onSizeChanged(window.frame.size)
+            if includeLiveResize {
+                NotificationCenter.default.addObserver(
+                    forName: NSWindow.didResizeNotification, object: window, queue: .main
+                ) { _ in
+                    onSizeChanged(window.frame.size)
+                }
+            }
+            NotificationCenter.default.addObserver(
+                forName: NSWindow.didEndLiveResizeNotification, object: window, queue: .main
+            ) { _ in
+                onSizeChanged(window.frame.size)
+            }
+        }
+    }
+#else
+    public func measureAvailableSize(_ onSizeChanged: @escaping (CGSize) -> Void) -> some View {
         ZStack {
-            MeasurementView(size: size)
+            MeasurementView(onSizeChanged)
             self
         }
     }
+#endif
 }
 
-#if os(macOS)
-private struct MeasurementView: NSViewControllerRepresentable {
-    typealias NSViewControllerType = MeasurementViewController
-    let viewController: MeasurementViewController
-    
-    init(size: Binding<CGSize>) {
-        viewController = MeasurementViewController(size: size)
-    }
-    
-    func makeNSViewController(context: Context) -> NSViewControllerType {
-        viewController
-    }
-    
-    func updateNSViewController(_ uiViewController: NSViewControllerType, context: Context) {
-        // ...
-    }
-}
-
-private class MeasurementViewController: NSViewController {
-    @Binding var size: CGSize
-    
-    init(size: Binding<CGSize>) {
-        self._size = size
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) { abort() }
-    
-    
-    override func viewWillTransition(to newSize: NSSize) {
-        super.viewWillTransition(to: newSize)
-        size = newSize
-    }
-}
-#else
+#if os(iOS)
 private struct MeasurementView: UIViewControllerRepresentable {
     typealias UIViewControllerType = MeasurementViewController
     let viewController: MeasurementViewController
     
-    init(size: Binding<CGSize>) {
-        viewController = MeasurementViewController(size: size)
+    init(_ onSizeChanged: @escaping (CGSize) -> Void) {
+        viewController = MeasurementViewController(onSizeChanged)
     }
     
     func makeUIViewController(context: Context) -> UIViewControllerType {
@@ -75,10 +51,10 @@ private struct MeasurementView: UIViewControllerRepresentable {
 }
 
 private class MeasurementViewController: UIViewController {
-    @Binding var size: CGSize
+    let onSizeChanged: (CGSize) -> Void
     
-    init(size: Binding<CGSize>) {
-        self._size = size
+    init(_ onSizeChanged: @escaping (CGSize) -> Void) {
+        self.onSizeChanged = onSizeChanged
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -86,7 +62,8 @@ private class MeasurementViewController: UIViewController {
     
     override func viewWillTransition(to newSize: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: newSize, with: coordinator)
-        size = newSize
+        printDebug("Size changed to", newSize.description)
+        onSizeChanged(newSize)
     }
 }
 #endif
