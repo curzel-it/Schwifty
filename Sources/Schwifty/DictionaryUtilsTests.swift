@@ -1,13 +1,13 @@
 import Foundation
 
-extension Dictionary {
-    public func merging(with other: [Key: Value]) -> [Key: Value] {
-        self.merging(other) { _, newValue in return newValue }
+public extension Dictionary {
+    func merging(with other: [Key: Value]) -> [Key: Value] {
+        merging(other) { _, newValue in newValue }
     }
 }
 
-extension Dictionary {
-    public func jsonString() -> String {
+public extension Dictionary {
+    func jsonString() -> String {
         guard let data = try? JSONSerialization.data(
             withJSONObject: self, options: [.prettyPrinted]
         ) else { return "n/a" }

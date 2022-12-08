@@ -2,13 +2,12 @@ import SwiftUI
 
 // MARK: - Magnitude
 
-extension CGVector {
-    
-    public func magnitude() -> Double {
+public extension CGVector {
+    func magnitude() -> Double {
         sqrt(dx.magnitudeSquared + dy.magnitudeSquared)
     }
-    
-    public func with(magnitude: CGFloat) -> CGVector {
+
+    func with(magnitude: CGFloat) -> CGVector {
         guard magnitude != 0 else { return .zero }
         let unit = self.unit()
         return CGVector(
@@ -16,8 +15,8 @@ extension CGVector {
             dy: unit.dy * magnitude
         )
     }
-    
-    public func unit() -> CGVector {
+
+    func unit() -> CGVector {
         let magnitude = self.magnitude()
         guard magnitude != 0 else { return .zero }
         return CGVector(
@@ -29,9 +28,8 @@ extension CGVector {
 
 // MARK: - Between Points
 
-extension CGVector {
-    
-    public static func unit(from source: CGPoint, to destination: CGPoint) -> CGVector {
+public extension CGVector {
+    static func unit(from source: CGPoint, to destination: CGPoint) -> CGVector {
         let distanceX = destination.x - source.x
         let distanceY = destination.y - source.y
         let distance = source.distance(from: destination)
@@ -45,7 +43,6 @@ extension CGVector {
 // MARK: - String Convertible
 
 extension CGVector: CustomStringConvertible {
-    
     public var description: String {
         let xVal = String(format: "%0.2f", dx)
         let yVal = String(format: "%0.2f", dy)

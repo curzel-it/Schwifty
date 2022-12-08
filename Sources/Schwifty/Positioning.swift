@@ -18,8 +18,8 @@ public enum Positioning {
 
 // MARK: - View Extension
 
-extension View {
-    public func positioned(_ align: Positioning) -> some View {
+public extension View {
+    func positioned(_ align: Positioning) -> some View {
         modifier(PositioningMod(alignment: align))
     }
 }
@@ -28,7 +28,7 @@ extension View {
 
 private struct PositioningMod: ViewModifier {
     let alignment: Positioning
-    
+
     func body(content: Content) -> some View {
         HStack(spacing: 0) {
             if alignment.needsSpacerBefore {
@@ -63,7 +63,7 @@ extension Positioning {
         default: return false
         }
     }
-    
+
     var needsSpacerAfter: Bool {
         switch self {
         case .middle: return true
@@ -74,7 +74,7 @@ extension Positioning {
         default: return false
         }
     }
-    
+
     var needsSpacerAbove: Bool {
         switch self {
         case .bottom: return true
@@ -86,7 +86,7 @@ extension Positioning {
         default: return false
         }
     }
-    
+
     var needsSpacerBelow: Bool {
         switch self {
         case .top: return true

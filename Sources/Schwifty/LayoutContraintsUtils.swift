@@ -1,13 +1,13 @@
 #if os(macOS)
-import AppKit
-public typealias ViewType = NSView
+    import AppKit
+    public typealias ViewType = NSView
 #else
-import UIKit
-public typealias ViewType = UIView
+    import UIKit
+    public typealias ViewType = UIView
 #endif
 
-extension ViewType {
-    public func constrainToFillParent() {
+public extension ViewType {
+    func constrainToFillParent() {
         guard let parent = superview else { return }
         frame = parent.bounds
         NSLayoutConstraint.activate([
@@ -17,8 +17,8 @@ extension ViewType {
             .anchor(self, to: parent, on: .trailing)
         ])
     }
-    
-    public func constrain(_ attribute: NSLayoutConstraint.Attribute, to value: CGFloat) {
+
+    func constrain(_ attribute: NSLayoutConstraint.Attribute, to value: CGFloat) {
         NSLayoutConstraint(
             item: self,
             attribute: attribute, relatedBy: .equal,
@@ -27,8 +27,8 @@ extension ViewType {
             constant: value
         ).isActive = true
     }
-    
-    public func constrainToCenterInParent() {
+
+    func constrainToCenterInParent() {
         guard let parent = superview else { return }
         NSLayoutConstraint.activate([
             .anchor(self, to: parent, on: .centerX),
@@ -37,8 +37,8 @@ extension ViewType {
     }
 }
 
-extension NSLayoutConstraint {    
-    public static func anchor(
+public extension NSLayoutConstraint {
+    static func anchor(
         _ view: ViewType,
         to other: ViewType,
         on side: NSLayoutConstraint.Attribute

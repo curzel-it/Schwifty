@@ -1,20 +1,20 @@
 import SwiftUI
 
-extension Text {
-    public func textAlign(_ align: TextAlignment) -> some View {
+public extension Text {
+    func textAlign(_ align: TextAlignment) -> some View {
         modifier(TextAlignMod(align: align))
     }
 }
 
-extension Button {
-    public func textAlign(_ align: TextAlignment) -> some View {
+public extension Button {
+    func textAlign(_ align: TextAlignment) -> some View {
         modifier(TextAlignMod(align: align))
     }
 }
 
-private struct TextAlignMod: ViewModifier {    
+private struct TextAlignMod: ViewModifier {
     let align: TextAlignment
-    
+
     func body(content: Content) -> some View {
         HStack(spacing: 0) {
             switch align {

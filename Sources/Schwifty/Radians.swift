@@ -11,9 +11,8 @@ public func degreesToRadians(_ degrees: CGFloat) -> CGFloat {
 
 // MARK: - Points
 
-extension CGPoint {
-        
-    public init(radians: CGFloat, radius: CGFloat = 1, offset: CGPoint = .zero) {
+public extension CGPoint {
+    init(radians: CGFloat, radius: CGFloat = 1, offset: CGPoint = .zero) {
         self.init(
             vector: CGVector(radians: radians),
             radius: radius,
@@ -24,20 +23,19 @@ extension CGPoint {
 
 // MARK: - Vectors
 
-extension CGVector {
-    
-    public var radians: CGFloat {
+public extension CGVector {
+    var radians: CGFloat {
         let rad = atan2(dy, dx)
         if rad >= 0 { return rad }
         return rad + 2 * .pi
     }
-    
-    public init(radians: CGFloat) {
+
+    init(radians: CGFloat) {
         let rad = radians > CGFloat.pi ? CGFloat.pi - radians : radians
         self.init(dx: cos(rad), dy: sin(rad))
     }
-    
-    public init(degrees: CGFloat) {
+
+    init(degrees: CGFloat) {
         self.init(radians: degreesToRadians(degrees))
     }
 }

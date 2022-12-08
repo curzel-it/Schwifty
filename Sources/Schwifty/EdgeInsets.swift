@@ -1,6 +1,6 @@
 import SwiftUI
 
-extension EdgeInsets {
-    public var vertical: CGFloat { top + bottom }
-    public var horizontal: CGFloat { leading + trailing }
+public extension EdgeInsets {
+    var vertical: CGFloat { top + bottom }
+    var horizontal: CGFloat { leading + trailing }
 }

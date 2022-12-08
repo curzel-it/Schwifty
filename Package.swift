@@ -8,13 +8,15 @@ let package = Package(
     products: [
         .library(
             name: "Schwifty",
-            targets: ["Schwifty"])
+            targets: ["Schwifty"]
+        )
     ],
     dependencies: [],
     targets: [
         .target(
             name: "Schwifty",
-            dependencies: []),
+            dependencies: []
+        ),
         .testTarget(
             name: "SchwiftyTests",
             dependencies: ["Schwifty"]

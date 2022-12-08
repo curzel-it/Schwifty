@@ -6,19 +6,19 @@ class RectContainsAnyOfTests: XCTestCase {
     func testTrueIfElementsAreOnRectStartEdge() {
         XCTAssertTrue(rect.contains(anyOf: [.ten]))
     }
-    
+
     func testFalseIfElementsAreOnRectEndEdge() {
         XCTAssertFalse(rect.contains(anyOf: [.twenty]))
     }
-    
+
     func testFalseIfNoElementsAreProvided() {
         XCTAssertFalse(rect.contains(anyOf: []))
     }
-    
+
     func testFalseIfNoElementsAreContained() {
         XCTAssertFalse(rect.contains(anyOf: [.one, .five, .thirty]))
     }
-    
+
     func testTrueIfAnyNumberOfElementsIsContained() {
         XCTAssertTrue(rect.contains(anyOf: [.one, .five, .fifteen]))
         XCTAssertTrue(rect.contains(anyOf: [.one, .fifteen, .sixteen]))
@@ -30,20 +30,20 @@ class RectContainsAllOfTests: XCTestCase {
     func testTrueIfElementsAreOnRectEdge() {
         XCTAssertTrue(rect.contains(allOf: [.ten]))
     }
-    
+
     func testFalseIfElementsAreOnRectEdge() {
         XCTAssertFalse(rect.contains(allOf: [.twenty]))
     }
-    
+
     func testTrueIfNoElementsAreProvided() {
         XCTAssertTrue(rect.contains(allOf: []))
     }
-    
+
     func testFalseIfAnyNumberOfElementsIsNotContained() {
         XCTAssertFalse(rect.contains(allOf: [.one, .fifteen]))
         XCTAssertFalse(rect.contains(allOf: [.one, .five]))
     }
-    
+
     func testTrueIfAllElementsAreContained() {
         XCTAssertTrue(rect.contains(allOf: [.fifteen]))
         XCTAssertTrue(rect.contains(allOf: [.fifteen, .sixteen]))
@@ -58,7 +58,7 @@ class RectInsetsTests: XCTestCase {
         XCTAssertEqual(enlarged.width, 6)
         XCTAssertEqual(enlarged.height, 6)
     }
-    
+
     func testCanGrowRectViaSingleValueInset() {
         let enlarged = rect.inset(by: -2)
         XCTAssertEqual(enlarged.minX, 8)

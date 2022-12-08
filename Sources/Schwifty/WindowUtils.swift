@@ -1,11 +1,11 @@
 #if os(macOS)
-import AppKit
-import SwiftUI
+    import AppKit
+    import SwiftUI
 
-extension NSWindow {
-    public func show(_ sender: Any? = nil) {
-        guard !isVisible else { return }
-        NSWindowController(window: self).showWindow(sender)
+    public extension NSWindow {
+        func show(_ sender: Any? = nil) {
+            guard !isVisible else { return }
+            NSWindowController(window: self).showWindow(sender)
+        }
     }
-}
 #endif

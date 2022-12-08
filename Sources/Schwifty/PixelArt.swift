@@ -1,9 +1,8 @@
 import SwiftUI
 
-extension Image {
-    public func pixelArt() -> some View {
-        self
-            .interpolation(.none)
+public extension Image {
+    func pixelArt() -> some View {
+        interpolation(.none)
             .resizable()
             .aspectRatio(contentMode: .fill)
     }
