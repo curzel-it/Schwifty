@@ -1,11 +1,11 @@
 import Foundation
 
 public extension Array where Element: Equatable {
-    func contains(anyOf values: [Element]) -> Bool {
+    func contains(anyOf values: any Collection<Element>) -> Bool {
         values.first { contains($0) } != nil
     }
 
-    func contains(allOf values: [Element]) -> Bool {
+    func contains(allOf values: any Collection<Element>) -> Bool {
         values.first { !contains($0) } == nil
     }
 

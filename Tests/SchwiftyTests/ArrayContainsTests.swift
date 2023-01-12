@@ -10,11 +10,17 @@ class ArrayContainsAnyOfTests: XCTestCase {
     func testFalseIfNoElementsAreContained() {
         XCTAssertFalse([1, 2, 3, 4].contains(anyOf: [5, 6, 7]))
     }
-
+    
     func testTrueIfAnyNumberOfElementsIsContained() {
         XCTAssertTrue([1, 2, 3, 4].contains(anyOf: [4, 5, 6, 7]))
         XCTAssertTrue([1, 2, 3, 4].contains(anyOf: [3, 4, 5, 6, 7]))
         XCTAssertTrue([1, 2, 3, 4].contains(anyOf: [1]))
+    }
+    
+    func testTrueIfAnyNumberOfElementsFromSetIsContained() {
+        XCTAssertTrue([1, 2, 3, 4].contains(anyOf: Set([4, 5, 6, 7])))
+        XCTAssertTrue([1, 2, 3, 4].contains(anyOf: Set([3, 4, 5, 6, 7])))
+        XCTAssertTrue([1, 2, 3, 4].contains(anyOf: Set([1])))
     }
 }
 
