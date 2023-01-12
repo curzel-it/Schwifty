@@ -4,6 +4,7 @@ import PackageDescription
 
 let package = Package(
     name: "Schwifty",
+    defaultLocalization: "en",
     platforms: [.macOS(.v11), .iOS(.v15)],
     products: [
         .library(

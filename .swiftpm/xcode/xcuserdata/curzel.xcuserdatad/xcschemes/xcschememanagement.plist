@@ -22,6 +22,11 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>Schwifty_SchwiftyTests</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 	</dict>
 </dict>
 </plist>

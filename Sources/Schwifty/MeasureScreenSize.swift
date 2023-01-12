@@ -62,7 +62,7 @@ public extension View {
 
         override func viewWillTransition(to newSize: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
             super.viewWillTransition(to: newSize, with: coordinator)
-            printDebug("Size changed to", newSize.description)
+            Logger.log("Size changed to", newSize.description)
             onSizeChanged(newSize)
         }
     }
