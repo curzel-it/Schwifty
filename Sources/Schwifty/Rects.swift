@@ -16,6 +16,12 @@ public extension CGRect {
     }
 }
 
+public extension CGRect {
+    func area() -> CGFloat {
+        size.area()
+    }
+}
+
 // MARK: - Contains Point
 
 public extension CGRect {
@@ -35,6 +41,10 @@ public extension CGRect {
 public extension CGRect {
     init(size: CGSize) {
         self.init(origin: .zero, size: size)
+    }
+    
+    init(square: CGFloat) {
+        self.init(size: CGSize(square: square))
     }
 }
 
