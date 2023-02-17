@@ -50,6 +50,43 @@ class RectContainsAllOfTests: XCTestCase {
     }
 }
 
+class RectContainsRectTests: XCTestCase {
+    func testContainsRectZeroOnTopLeftCorner() {
+        let other = CGRect(origin: rect.topLeft, size: .zero)
+        XCTAssertTrue(rect.contains(rect: other))
+    }
+    
+    func testContainsRectZeroOnTopRightCorner() {
+        let other = CGRect(origin: rect.topRight, size: .zero)
+        XCTAssertTrue(rect.contains(rect: other))
+    }
+    
+    func testContainsRectZeroOnBottomRightCorner() {
+        let other = CGRect(origin: rect.bottomRight, size: .zero)
+        XCTAssertTrue(rect.contains(rect: other))
+    }
+    
+    func testContainsRectZeroOnBottomLeftCorner() {
+        let other = CGRect(origin: rect.bottomLeft, size: .zero)
+        XCTAssertTrue(rect.contains(rect: other))
+    }
+    
+    func testContainsContainedRect() {
+        let other = CGRect(x: 11, y: 11, width: 1, height: 1)
+        XCTAssertTrue(rect.contains(rect: other))
+    }
+    
+    func testDoesNotContainPartiallyOverlappingRect() {
+        let other = CGRect(x: 18, y: 18, width: 10, height: 10)
+        XCTAssertFalse(rect.contains(rect: other))
+    }
+    
+    func testDoesNotContainRectOutside() {
+        let other = CGRect(x: 25, y: 25, width: 1, height: 1)
+        XCTAssertFalse(rect.contains(rect: other))
+    }
+}
+
 class RectInsetsTests: XCTestCase {
     func testCanShrinkRectViaSingleValueInset() {
         let enlarged = rect.inset(by: 2)

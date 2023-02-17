@@ -36,6 +36,16 @@ public extension CGRect {
     }
 }
 
+// MARK: - Contains Rect
+
+public extension CGRect {
+    func contains(rect other: CGRect) -> Bool {
+        other.corners
+            .map { contains($0) || $0.isOnEdge(of: self) }
+            .allSatisfy { $0 }
+    }
+}
+
 // MARK: - Init by size
 
 public extension CGRect {
