@@ -72,6 +72,10 @@ public extension CGRect {
     func offset(by delta: CGPoint) -> CGRect {
         offset(x: delta.x, y: delta.y)
     }
+    
+    func offset(by delta: CGSize) -> CGRect {
+        offset(x: delta.width, y: delta.height)
+    }
 
     func offset(x: CGFloat = 0, y: CGFloat = 0) -> CGRect {
         CGRect(origin: origin.offset(x: x, y: y), size: size)
