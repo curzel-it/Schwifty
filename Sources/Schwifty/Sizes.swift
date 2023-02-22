@@ -19,6 +19,12 @@ public extension CGSize {
 }
 
 public extension CGSize {
+    func diagonal() -> CGFloat {
+        sqrt(pow(width, 2) + pow(height, 2))
+    }
+}
+
+public extension CGSize {
     static let oneByOne = CGSize(square: 1)
 }
 

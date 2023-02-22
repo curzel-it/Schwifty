@@ -100,10 +100,18 @@ extension CGRect: CustomStringConvertible {
     }
 }
 
-// MARK: - Extension
+// MARK: - Bounds
 
 public extension CGRect {
     var bounds: CGRect {
         CGRect(origin: .zero, size: size)
+    }
+}
+
+// MARK: - Diagonal
+
+public extension CGRect {
+    func diagonal() -> CGFloat {
+        size.diagonal()
     }
 }
