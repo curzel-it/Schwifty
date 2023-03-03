@@ -1,14 +1,45 @@
 import SwiftUI
 
 public struct Screen {
-    public static var main: Screen {
+    public let localizedName: String?
+    public let frame: CGRect
+    
+    public var bounds: CGRect { frame.bounds }
+}
+
+#if os(macOS)
+extension Screen {
+    init?(from screen: NSScreen?) {
+        guard let screen else { return nil }
+        self.localizedName = screen.localizedName
+        self.frame = screen.frame
+    }
+}
+#else
+extension Screen {
+    init?(from screen: UIScreen?) {
+        guard let screen else { return nil }
+        self.localizedName = "n/a"
+        self.frame = screen.bounds
+    }
+}
+#endif
+
+public extension Screen {
+    static var main: Screen? {
         #if os(macOS)
-            let frame = NSScreen.main?.frame ?? .zero
-            return Screen(bounds: CGRect(origin: .zero, size: frame.size))
+        return Screen(from: NSScreen.main)
         #else
-            return Screen(bounds: UIScreen.main.bounds)
+        return Screen(from: UIScreen.main)
         #endif
     }
-
-    public let bounds: CGRect
+    
+    static var screens: [Screen] {
+#if os(macOS)
+        return NSScreen.screens.compactMap { Screen(from: $0) }
+#else
+        guard let screen = Screen.main else { return [] }
+        return [screen]
+#endif
+    }
 }
