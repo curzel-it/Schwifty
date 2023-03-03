@@ -1,7 +1,7 @@
 import SwiftUI
 
 public struct Screen {
-    public let localizedName: String?
+    public let localizedName: String
     public let frame: CGRect
     
     public var bounds: CGRect { frame.bounds }
