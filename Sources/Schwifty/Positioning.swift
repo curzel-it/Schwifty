@@ -9,6 +9,8 @@ public enum Positioning {
     case leadingBottom
     case top
     case middle
+    case horizontalCenter
+    case verticalCenter
     case bottom
     case trailing
     case trailingTop
@@ -56,6 +58,7 @@ extension Positioning {
     var needsSpacerBefore: Bool {
         switch self {
         case .middle: return true
+        case .horizontalCenter: return true
         case .trailing: return true
         case .trailingMiddle: return true
         case .trailingTop: return true
@@ -67,6 +70,7 @@ extension Positioning {
     var needsSpacerAfter: Bool {
         switch self {
         case .middle: return true
+        case .horizontalCenter: return true
         case .leading: return true
         case .leadingMiddle: return true
         case .leadingTop: return true
@@ -78,6 +82,7 @@ extension Positioning {
     var needsSpacerAbove: Bool {
         switch self {
         case .bottom: return true
+        case .verticalCenter: return true
         case .middle: return true
         case .leadingMiddle: return true
         case .leadingBottom: return true
@@ -90,6 +95,7 @@ extension Positioning {
     var needsSpacerBelow: Bool {
         switch self {
         case .top: return true
+        case .verticalCenter: return true
         case .middle: return true
         case .leadingTop: return true
         case .leadingMiddle: return true
