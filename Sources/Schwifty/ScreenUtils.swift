@@ -3,6 +3,7 @@ import SwiftUI
 public struct Screen {
     public let localizedName: String
     public let frame: CGRect
+    public let scale: CGFloat
     
     public var bounds: CGRect { frame.bounds }
 }
@@ -13,6 +14,7 @@ extension Screen {
         guard let screen else { return nil }
         self.localizedName = screen.localizedName
         self.frame = screen.frame
+        self.scale = screen.backingScaleFactor
     }
 }
 #else
@@ -21,6 +23,7 @@ extension Screen {
         guard let screen else { return nil }
         self.localizedName = "n/a"
         self.frame = screen.bounds
+        self.scale = screen.scale
     }
 }
 #endif
