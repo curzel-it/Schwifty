@@ -16,6 +16,7 @@ public enum Positioning {
     case trailingTop
     case trailingMiddle
     case trailingBottom
+    case none
 }
 
 // MARK: - View Extension
