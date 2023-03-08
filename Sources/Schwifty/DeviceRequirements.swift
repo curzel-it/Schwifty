@@ -13,6 +13,40 @@ public enum DeviceRequirement {
     case landscape
 }
 
+public struct DeviceRequirements {
+    let condition: DeviceRequirementsCondition
+    let requirements: [DeviceRequirement]
+    
+    public static func only(_ requirement: DeviceRequirement) -> DeviceRequirements {
+        .init(condition: .all, requirements: [requirement])
+    }
+    
+    public static func all(_ requirements: DeviceRequirement...) -> DeviceRequirements {
+        .init(condition: .all, requirements: requirements)
+    }
+    
+    public static func any(_ requirements: DeviceRequirement...) -> DeviceRequirements {
+        .init(condition: .any, requirements: requirements)
+    }
+    
+    init(condition: DeviceRequirementsCondition, requirements: [DeviceRequirement]) {
+        self.condition = condition
+        self.requirements = requirements
+    }
+    
+    func areSatisfied() -> Bool {
+        switch condition {
+        case .all: return requirements.allSatisfy { $0.isSatisfied }
+        case .any: return requirements.contains { $0.isSatisfied }
+        }
+    }
+}
+
+enum DeviceRequirementsCondition {
+    case any
+    case all
+}
+
 public extension DeviceRequirement {
     static func allSatisfied(_ requirements: DeviceRequirement...) -> Bool {
         requirements.allSatisfy { $0.isSatisfied }
@@ -50,11 +84,11 @@ public extension DeviceRequirement {
 }
 
 public extension View {
-    @inlinable func modifier<T: ViewModifier>(
-        when requirements: DeviceRequirement...,
+    func modifier<T: ViewModifier>(
+        when requirements: DeviceRequirements,
         apply viewModifier: T
     ) -> AnyView {
-        if DeviceRequirement.allSatisfied(requirements) {
+        if requirements.areSatisfied() {
             return AnyView(modifier(viewModifier))
         } else {
             return AnyView(self)
@@ -63,19 +97,19 @@ public extension View {
 }
 
 public extension View {
-    func font(when requirements: DeviceRequirement..., font: Font?) -> some View {
+    func font(when requirements: DeviceRequirements, font: Font?) -> some View {
         self.font(
-            DeviceRequirement.allSatisfied(requirements) ? font : nil
+            requirements.areSatisfied() ? font : nil
         )
     }
     
-    @inlinable func positioned(when requirements: DeviceRequirement..., align: Positioning) -> some View {
-        let doesApply = DeviceRequirement.allSatisfied(requirements)
+    func positioned(when requirements: DeviceRequirements, align: Positioning) -> some View {
+        let doesApply = requirements.areSatisfied()
         return positioned(doesApply ? align : .none)
     }
     
-    @inlinable func frame(
-        when requirements: DeviceRequirement...,
+    func frame(
+        when requirements: DeviceRequirements,
         width: CGFloat? = nil,
         minWidth: CGFloat? = nil,
         maxWidth: CGFloat? = nil,
@@ -83,7 +117,7 @@ public extension View {
         minHeight: CGFloat? = nil,
         maxHeight: CGFloat? = nil
     ) -> some View {
-        let doesApply = DeviceRequirement.allSatisfied(requirements)
+        let doesApply = requirements.areSatisfied()
         return self
             .frame(width: doesApply ? width : nil)
             .frame(minWidth: doesApply ? minWidth : nil)
