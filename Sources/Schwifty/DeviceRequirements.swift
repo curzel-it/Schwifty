@@ -17,7 +17,7 @@ public struct DeviceRequirements {
     let condition: DeviceRequirementsCondition
     let requirements: [DeviceRequirement]
     
-    public static func only(_ requirement: DeviceRequirement) -> DeviceRequirements {
+    public static func `is`(_ requirement: DeviceRequirement) -> DeviceRequirements {
         .init(condition: .all, requirements: [requirement])
     }
     
