@@ -103,7 +103,7 @@ public extension View {
         )
     }
     
-    func padding(when requirements: DeviceRequirements, edges: Edge.Set, length: CGFloat? = nil) -> some View {
+    func padding(when requirements: DeviceRequirements, _ edges: Edge.Set, _ length: CGFloat? = nil) -> some View {
         let doesApply = requirements.areSatisfied()
         return padding(
             doesApply ? edges : [],
