@@ -7,6 +7,13 @@ public extension Optional {
         case .none: throw OptionalError.unwrappingOptionalValue
         }
     }
+    
+    func `let`<T>(_ handler: (Wrapped) -> T) -> T? {
+        if case .some(let value) = self {
+            return handler(value)
+        }
+        return nil
+    }
 }
 
 public enum OptionalError: Error {
