@@ -14,3 +14,13 @@ public extension Dictionary {
         return String(data: data, encoding: .utf8) ?? "n/a"
     }
 }
+
+public extension Dictionary {
+    func pairs() -> [(Key, Value)] {
+        reduce([(Key, Value)]()) { result, element in
+            var updatedResult = result
+            updatedResult.append((element.key, element.value))
+            return updatedResult
+        }
+    }
+}

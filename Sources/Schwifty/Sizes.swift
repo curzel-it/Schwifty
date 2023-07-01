@@ -13,24 +13,28 @@ public extension CGSize {
 }
 
 public extension CGSize {
-    func oppositeSign() -> CGSize {
-        CGSize(width: -width, height: -height)
-    }
-}
-
-public extension CGSize {
-    func diagonal() -> CGFloat {
-        sqrt(pow(width, 2) + pow(height, 2))
-    }
-}
-
-public extension CGSize {
     static let oneByOne = CGSize(square: 1)
 }
 
 public extension CGSize {
+    var center: CGPoint {
+        CGPoint(x: width/2, y: height/2)
+    }
+    
     func area() -> CGFloat {
         width * height
+    }
+    
+    func diagonal() -> CGFloat {
+        sqrt(pow(width, 2) + pow(height, 2))
+    }
+    
+    func oppositeSign() -> CGSize {
+        CGSize(width: -width, height: -height)
+    }
+    
+    func scaled(_ scalar: CGFloat) -> CGSize {
+        CGSize(width: width * scalar, height: height * scalar)
     }
 }
 
