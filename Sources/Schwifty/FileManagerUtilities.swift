@@ -23,13 +23,6 @@ public extension FileManager {
         }
         return files
     }
-    
-    func temporaryFileUrl(withExtension: String? = nil) -> URL {
-        let filename = [UUID().uuidString, withExtension]
-            .compactMap { $0 }
-            .joined(separator: ".")
-        return temporaryDirectory.appendingPathComponent(filename)
-    }
 }
 
 public extension URL {
