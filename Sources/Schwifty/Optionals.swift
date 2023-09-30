@@ -8,7 +8,7 @@ public extension Optional {
         }
     }
     
-    func `let`<T>(_ handler: (Wrapped) -> T) -> T? {
+    func `let`<T>(_ handler: (Wrapped) -> T?) -> T? {
         if case .some(let value) = self {
             return handler(value)
         }
