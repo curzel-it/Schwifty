@@ -23,6 +23,11 @@ public extension FileManager {
         }
         return files
     }
+    
+    func creationDate(for url: URL) -> Date? {
+        let attributes = try? FileManager.default.attributesOfItem(atPath: url.path)
+        return attributes?[.creationDate] as? Date
+    }
 }
 
 public extension URL {

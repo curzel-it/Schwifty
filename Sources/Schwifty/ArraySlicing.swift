@@ -16,6 +16,10 @@ public extension Array {
     func by(adding element: Element) -> Self {
         self + [element]
     }
+    
+    func by(addingContentsOf elements: [Element]) -> Self {
+        self + elements
+    }
 }
 
 public extension Array where Element: Equatable {

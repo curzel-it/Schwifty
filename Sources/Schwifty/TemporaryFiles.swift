@@ -27,3 +27,11 @@ public class TemporaryFiles {
         try fileManager.createDirectory(at: tempFolder, withIntermediateDirectories: true)
     }
 }
+
+public extension URL {
+    @available(macOS 13.0, *)
+    @available(iOS 16.0, *)
+    var isTemporary: Bool {
+        path().contains(FileManager.default.temporaryDirectory.path())
+    }
+}
