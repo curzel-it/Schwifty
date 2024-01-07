@@ -68,3 +68,11 @@ extension CGPoint: CustomStringConvertible {
         return "(x: \(xVal), y: \(yVal))"
     }
 }
+
+// MARK: - Geometry
+
+public extension CGPoint {
+    func scaled(_ scalar: CGFloat) -> CGPoint {
+        CGPoint(x: x * scalar, y: y * scalar)
+    }
+}

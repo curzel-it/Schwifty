@@ -16,12 +16,6 @@ public extension CGRect {
     }
 }
 
-public extension CGRect {
-    func area() -> CGFloat {
-        size.area()
-    }
-}
-
 // MARK: - Contains Point
 
 public extension CGRect {
@@ -100,18 +94,22 @@ extension CGRect: CustomStringConvertible {
     }
 }
 
-// MARK: - Bounds
+// MARK: - Geometry
 
 public extension CGRect {
     var bounds: CGRect {
         CGRect(origin: .zero, size: size)
     }
-}
-
-// MARK: - Diagonal
-
-public extension CGRect {
+    
     func diagonal() -> CGFloat {
         size.diagonal()
+    }
+    
+    func area() -> CGFloat {
+        size.area()
+    }
+    
+    func scaled(_ scalar: CGFloat) -> CGRect {
+        CGRect(origin: origin.scaled(scalar), size: size.scaled(scalar))
     }
 }
