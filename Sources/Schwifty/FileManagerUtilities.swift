@@ -9,7 +9,7 @@ public extension FileManager {
     
     func files(in url: URL, withExtension fileExtension: String) -> [URL] {
         let allFiles = try? contentsOfDirectory(at: url, includingPropertiesForKeys: nil)
-            
+        
         return (allFiles ?? [])
             .filter { $0.pathExtension.lowercased() == fileExtension }
     }
@@ -28,6 +28,15 @@ public extension FileManager {
         let attributes = try? FileManager.default.attributesOfItem(atPath: url.path)
         return attributes?[.creationDate] as? Date
     }
+    
+    func createIntermediateDirectories(toDirectory url: URL) throws {
+        guard !fileExists(atPath: url.path()) else { return }
+        try createDirectory(at: url, withIntermediateDirectories: true)
+    }
+    
+    func createIntermediateDirectories(toFile url: URL) throws {
+        try createIntermediateDirectories(toDirectory: url.deletingLastPathComponent())
+    }
 }
 
 public extension URL {
@@ -35,5 +44,11 @@ public extension URL {
         guard !pathExtension.isEmpty else { return self }
         let urlWithoutExtension = deletingPathExtension()
         return urlWithoutExtension.appendingPathExtension(newExtension)
+    }
+    
+    func isExistingFolder() -> Bool {
+        var isDirectory: ObjCBool = false
+        FileManager.default.fileExists(atPath: path(), isDirectory: &isDirectory)
+        return isDirectory.boolValue
     }
 }
