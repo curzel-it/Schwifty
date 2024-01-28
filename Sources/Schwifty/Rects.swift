@@ -57,8 +57,8 @@ public extension CGRect {
 public extension CGRect {
     func inset(by edgeInsets: EdgeInsets) -> CGRect {
         CGRect(
-            x: minX + edgeInsets.leading,
-            y: minY + edgeInsets.top,
+            x: origin.x + edgeInsets.leading,
+            y: origin.y + edgeInsets.top,
             width: width - edgeInsets.trailing - edgeInsets.leading,
             height: height - edgeInsets.bottom - edgeInsets.top
         )
@@ -113,3 +113,25 @@ public extension CGRect {
         CGRect(origin: origin.scaled(scalar), size: size.scaled(scalar))
     }
 }
+
+// MARK: - Smallest Enclosing Rect
+
+public extension Array where Element == CGRect {
+    func smallestEnclosingRectangle() -> CGRect? {
+        guard !isEmpty else { return nil }
+                
+        var minX = self[0].minX
+        var maxX = self[0].maxX
+        var minY = self[0].minY
+        var maxY = self[0].maxY
+
+        for rect in self.dropFirst() {
+            minX = Swift.min(minX, rect.minX)
+            maxX = Swift.max(maxX, rect.maxX)
+            minY = Swift.min(minY, rect.minY)
+            maxY = Swift.max(maxY, rect.maxY)
+        }
+        return CGRect(x: minX, y: minY, width: maxX - minX, height: maxY - minY)
+    }
+}
+

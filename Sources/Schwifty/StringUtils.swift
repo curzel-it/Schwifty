@@ -59,3 +59,14 @@ public extension Optional<String> {
         }
     }
 }
+
+public extension String {
+    func urlSafe() -> String {
+        String(
+            filter {
+                guard let char = $0.unicodeScalars.first else { return false }
+                return CharacterSet.alphanumerics.contains(char)
+            }
+        )
+    }
+}
