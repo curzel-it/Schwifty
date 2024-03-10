@@ -70,6 +70,19 @@ public extension CGRect {
     }
 }
 
+#if os(macOS)
+extension CGRect {
+    func inset(by insets: NSEdgeInsets) -> CGRect {
+        CGRect(
+            x: origin.x + insets.left,
+            y: origin.y + insets.top,
+            width: size.width - insets.left - insets.right,
+            height: size.height - insets.top - insets.bottom
+        )
+    }
+}
+#endif
+
 // MARK: - Offset
 
 public extension CGRect {

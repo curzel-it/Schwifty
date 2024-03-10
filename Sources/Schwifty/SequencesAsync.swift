@@ -13,7 +13,7 @@ public extension Sequence {
         case .parallel: await asyncParallelMap(transform)
             
         case .batched(let size):
-            await chunked(into: size)
+            await chunks(ofSize: size)
                 .asyncSequentialMap {
                     await $0.asyncParallelMap(transform)
                 }
