@@ -71,7 +71,7 @@ public extension CGRect {
 }
 
 #if os(macOS)
-extension CGRect {
+public extension CGRect {
     func inset(by insets: NSEdgeInsets) -> CGRect {
         CGRect(
             x: origin.x + insets.left,
