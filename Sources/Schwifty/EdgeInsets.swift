@@ -6,7 +6,7 @@ public extension EdgeInsets {
 }
 
 #if os(macOS)
-extension NSEdgeInsets {
+public extension NSEdgeInsets {
     func verticalOnly() -> NSEdgeInsets {
         NSEdgeInsets(top: top, left: 0, bottom: bottom, right: 0)
     }
